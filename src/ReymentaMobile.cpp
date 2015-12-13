@@ -1,64 +1,7 @@
-#include "cinder/app/App.h"
-#include "cinder/app/RendererGl.h"
-#include "cinder/gl/gl.h"
-#include "cinder/System.h"
-#include "cinder/Rand.h"
-#include "cinder/Log.h"
 
-#include <vector>
-#include <map>
-#include <list>
+#include "ReymentaMobile.h"
 
-using namespace ci;
-using namespace ci::app;
-using namespace std;
-
-struct TouchPoint {
-	TouchPoint() {}
-	TouchPoint( const vec2 &initialPt, const Color &color ) : mColor( color ), mTimeOfDeath( -1.0 ) 
-	{
-		mLine.push_back( initialPt ); 
-	}
-	
-	void addPoint( const vec2 &pt ) { mLine.push_back( pt ); }
-	
-	void draw() const
-	{
-		if( mTimeOfDeath > 0 ) // are we dying? then fade out
-			gl::color( ColorA( mColor, ( mTimeOfDeath - getElapsedSeconds() ) / 2.0f ) );
-		else
-			gl::color( mColor );
-
-		gl::draw( mLine );
-	}
-	
-	void startDying() { mTimeOfDeath = getElapsedSeconds() + 2.0f; } // two seconds til dead
-	
-	bool isDead() const { return getElapsedSeconds() > mTimeOfDeath; }
-	
-	PolyLine2f		mLine;
-	Color			mColor;
-	float			mTimeOfDeath;
-};
-
-class MultiTouchApp : public App {
- public:
-	void	mouseDown( MouseEvent event ) override;
-	void	mouseDrag( MouseEvent event ) override;
-
-	void	touchesBegan( TouchEvent event ) override;
-	void	touchesMoved( TouchEvent event ) override;
-	void	touchesEnded( TouchEvent event ) override;
-
-	void	setup() override;
-	void	draw() override;
-
-  private:
-	map<uint32_t,TouchPoint>	mActivePoints;
-	list<TouchPoint>			mDyingPoints;
-};
-
-void prepareSettings( MultiTouchApp::Settings *settings )
+void prepareSettings( ReymentaMobile::Settings *settings )
 {
 	// By default, multi-touch is disabled on desktop and enabled on mobile platforms.
 	// You enable multi-touch from the SettingsFn that fires before the app is constructed.
@@ -68,12 +11,12 @@ void prepareSettings( MultiTouchApp::Settings *settings )
 //	settings->setMultiTouchEnabled( false );
 }
 
-void MultiTouchApp::setup()
+void ReymentaMobile::setup()
 {
 	CI_LOG_I( "MT: " << System::hasMultiTouch() << " Max points: " << System::getMaxMultiTouchPoints() );
 }
 
-void MultiTouchApp::touchesBegan( TouchEvent event )
+void ReymentaMobile::touchesBegan( TouchEvent event )
 {
 	//CI_LOG_I( event );
 
@@ -83,7 +26,7 @@ void MultiTouchApp::touchesBegan( TouchEvent event )
 	}
 }
 
-void MultiTouchApp::touchesMoved( TouchEvent event )
+void ReymentaMobile::touchesMoved( TouchEvent event )
 {
 	//CI_LOG_I( event );
 	for( const auto &touch : event.getTouches() ) {
@@ -91,7 +34,7 @@ void MultiTouchApp::touchesMoved( TouchEvent event )
 	}
 }
 
-void MultiTouchApp::touchesEnded( TouchEvent event )
+void ReymentaMobile::touchesEnded( TouchEvent event )
 {
 	//CI_LOG_I( event );
 	for( const auto &touch : event.getTouches() ) {
@@ -101,17 +44,17 @@ void MultiTouchApp::touchesEnded( TouchEvent event )
 	}
 }
 
-void MultiTouchApp::mouseDown( MouseEvent event )
+void ReymentaMobile::mouseDown( MouseEvent event )
 {
 	CI_LOG_I( "right: " << boolalpha << event.isRight() << " , control down " << event.isControlDown() << dec );
 }
 
-void MultiTouchApp::mouseDrag( MouseEvent event )
+void ReymentaMobile::mouseDrag( MouseEvent event )
 {
 	CI_LOG_I( "pos: " << event.getPos() );
 }
 
-void MultiTouchApp::draw()
+void ReymentaMobile::draw()
 {
 	gl::enableAlphaBlending();
 	gl::clear( Color( 0.1f, 0.1f, 0.1f ) );
@@ -134,4 +77,4 @@ void MultiTouchApp::draw()
 		gl::drawStrokedCircle( touch.getPos(), 20 );
 }
 
-CINDER_APP( MultiTouchApp, RendererGl, prepareSettings )
+CINDER_APP( ReymentaMobile, RendererGl, prepareSettings )
