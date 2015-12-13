@@ -14,6 +14,10 @@ void prepareSettings( ReymentaMobile::Settings *settings )
 void ReymentaMobile::setup()
 {
 	CI_LOG_I( "MT: " << System::hasMultiTouch() << " Max points: " << System::getMaxMultiTouchPoints() );
+	// set ui window and io events callbacks
+    //ui::initialize(ui::Options().autoRender(false));
+    ui::initialize();
+
 }
 
 void ReymentaMobile::touchesBegan( TouchEvent event )
@@ -21,7 +25,7 @@ void ReymentaMobile::touchesBegan( TouchEvent event )
 	//CI_LOG_I( event );
 
 	for( const auto &touch : event.getTouches() ) {
-		Color newColor( CM_HSV, Rand::randFloat(), 1, 1 );
+		ColorA newColor( CM_HSV, Rand::randFloat(), 1, 1 );
 		mActivePoints.insert( make_pair( touch.getId(), TouchPoint( touch.getPos(), newColor ) ) );
 	}
 }
@@ -57,7 +61,7 @@ void ReymentaMobile::mouseDrag( MouseEvent event )
 void ReymentaMobile::draw()
 {
 	gl::enableAlphaBlending();
-	gl::clear( Color( 0.1f, 0.1f, 0.1f ) );
+	gl::clear( ColorA( 0.1f, 0.1f, 0.1f, 1.0f ) );
 
 	for( const auto &activePoint : mActivePoints ) {
 		activePoint.second.draw();
@@ -72,7 +76,7 @@ void ReymentaMobile::draw()
 	}
 	
 	// draw yellow circles at the active touch points
-	gl::color( Color( 1, 1, 0 ) );
+	gl::color( ColorA( 1, 1, 0, 1 ) );
 	for( const auto &touch : getActiveTouches() )
 		gl::drawStrokedCircle( touch.getPos(), 20 );
 }
