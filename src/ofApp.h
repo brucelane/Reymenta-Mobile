@@ -14,8 +14,6 @@ class ofApp : public ofxAndroidApp{
 		void update();
 		void draw();
 
-		void keyPressed(int key);
-		void keyReleased(int key);
 		void windowResized(int w, int h);
 
 		void touchDown(int x, int y, int id);
@@ -37,6 +35,12 @@ class ofApp : public ofxAndroidApp{
 		ofTrueTypeFont font;
 		ofVec3f accel, normAccel;
 		string messages[3];
+        // imgui
+		ofxImgui gui;
+        ImVec4 clear_color;
+        bool show_test_window;
+        bool show_another_window;
 
-        ofxImgui m_ui;
+        float floatValue;
+
 };

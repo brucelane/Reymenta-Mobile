@@ -1,8 +1,15 @@
 #include "ofMain.h"
 #include "ofApp.h"
-
+//#if (OF_VERSION_MINOR != 9) && defined(TARGET_OPENGLES)
+#include "ofGLProgrammableRenderer.h"
+//#endif
 int main(){
-	ofSetupOpenGL(1024,768, OF_WINDOW);			// <-------- setup the GL context
+	ofGLWindowSettings glWindowSettings;
+	glWindowSettings.width = 1280;
+	glWindowSettings.height = 720;
+	glWindowSettings.setGLVersion(3, 2);
+	ofCreateWindow(glWindowSettings);
+	//ofSetupOpenGL(1024,768, OF_WINDOW);			// <-------- setup the GL context
 
 	// this kicks off the running of my app
 	// can be OF_WINDOW or OF_FULLSCREEN
