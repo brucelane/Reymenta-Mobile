@@ -4,7 +4,7 @@
 void ofApp::setup(){
 	// initialize the accelerometer
 	ofxAccelerometer.setup();
-
+	m_ui.setup();
 	font.load("verdana.ttf",24);
 	ofSetLineWidth(10);
 	ofBackground(0,0,0);
@@ -39,6 +39,26 @@ void ofApp::draw(){
 	// but it's approximately one when the device is still and parallel
 	// to the ground
 	ofPopMatrix();
+	m_ui.begin();
+
+	static bool show_another_window = true;
+	static bool show_test_window = true;
+
+	if(show_another_window)
+	{
+		ImGui::SetNextWindowSize(ImVec2(200, 100), ImGuiSetCond_FirstUseEver);
+		ImGui::Begin("Another Window", &show_another_window);
+		ImGui::Text("Hello");
+		ImGui::End();
+	}
+
+	if(show_test_window)
+	{
+		ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiSetCond_FirstUseEver);
+		ImGui::ShowTestWindow(&show_test_window);
+	}
+
+	m_ui.end();
 }
 
 //--------------------------------------------------------------

@@ -4,6 +4,7 @@
 #include "ofxAndroid.h"
 
 #include "ofxAccelerometer.h"
+#include "ofxImgui.h"
 
 class ofApp : public ofxAndroidApp{
 	
@@ -36,4 +37,6 @@ class ofApp : public ofxAndroidApp{
 		ofTrueTypeFont font;
 		ofVec3f accel, normAccel;
 		string messages[3];
+
+        ofxImgui m_ui;
 };
