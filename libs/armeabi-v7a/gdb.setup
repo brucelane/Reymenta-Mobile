@@ -1,0 +1,7 @@
+set solib-search-path /home/bruce/of_v0.9.0_android_release/apps/myApps/reymentaMobile/obj/local/armeabi-v7a:/home/bruce/of_v0.9.0_android_release/apps/myApps/reymentaMobile/libs/armeabi-v7a
+set sysroot /home/bruce/android-ndk-r10e/platforms/android-19/arch-arm/
+directory /home/bruce/android-ndk-r10e/platforms/android-19/arch-arm/usr/include
+directory /home/bruce/of_v0.9.0_android_release/apps/myApps/reymentaMobile/src
+directory /home/bruce/android-ndk-r10e/sources/cxx-stl/system
+directory /home/bruce/of_v0.9.0_android_release/apps/myApps/reymentaMobile/libs/armeabi-v7a
+
