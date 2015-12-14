@@ -4,7 +4,7 @@
 #include "ofxAndroid.h"
 
 #include "ofxAccelerometer.h"
-#include "ofxImgui.h"
+#include "ofxImGui.h"
 
 class ofApp : public ofxAndroidApp{
 	
@@ -36,7 +36,7 @@ class ofApp : public ofxAndroidApp{
 		ofVec3f accel, normAccel;
 		string messages[3];
         // imgui
-		ofxImgui gui;
+		ofxImGui gui;
         ImVec4 clear_color;
         bool show_test_window;
         bool show_another_window;
